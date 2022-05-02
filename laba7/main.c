@@ -136,7 +136,7 @@ char* get_string_from_int (int value)
     char* result = (char*) malloc (range);
     for (int i = range; i > 0; i--)
     {
-        result[range - i] = (char)(48 + (int)((value / pow (10, i - 1))) % 10);
+        result[range - i] = (char)(48 + (int)((value / poww (10, i - 1))) % 10);
     }
     return result;
 }
