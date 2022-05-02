@@ -145,10 +145,10 @@ int poww (int value, int range)
 {
     int result;
     if (range == 0)
-        result == 1;
+        result = 1;
     else
         if (range == 1)
-            result == value;
+            result = value;
         else
         {
             result = value;
