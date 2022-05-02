@@ -24,6 +24,7 @@ void term_all (array_pid ** consumers, array_pid ** producers);
 char* get_string_from_int (int value);
 void make_message (message * create_message_temp);
 int rand_int (int max);
+int poww (int value, int range);
 
 
 int main()
@@ -137,5 +138,22 @@ char* get_string_from_int (int value)
     {
         result[range - i] = (char)(48 + (int)((value / pow (10, i - 1))) % 10);
     }
+    return result;
+}
+
+int poww (int value, int range)
+{
+    int result;
+    if (range == 0)
+        result == 1;
+    else
+        if (range == 1)
+            result == value;
+        else
+        {
+            result = value;
+            for (int i = 1; i < range; i++)
+                result *= value;
+        }
     return result;
 }
