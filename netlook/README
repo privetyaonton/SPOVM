@@ -1,5 +1,10 @@
+компилить так:
 gcc server.c FileSystem.c -pthread -o server
 gcc client.c FileSystem.c -pthread -o client
 
+запускать так:
 ./client <addr>
 ./server <walk>
+
+---------------
+на гите пока только исполняемые для архитектуры ARM64
