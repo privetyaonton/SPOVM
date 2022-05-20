@@ -1,0 +1,5 @@
+gcc server.c FileSystem.c -pthread -o server
+gcc client.c FileSystem.c -pthread -o client
+
+./client <addr>
+./server <walk>
