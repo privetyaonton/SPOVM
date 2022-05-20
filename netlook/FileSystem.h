@@ -1,9 +1,14 @@
 #ifndef FILESYSTEM_H
+#define _CRT_SECURE_NO_WARNINGS 
+#define _CRT_NONSTDC_NO_WARNINGS
 #define FILESYSTEM_H
 #define MAX_SIZE_FILE 1073741824 // max = 1GB
 #define MAX_SIZE_NAME_FILE 200
 #define MAX_NUMBERS_ENTRIES_OBJECTS 64
 #define MAX_NUMBERS_ENTRIES_DIRS 64
+#define MAX_SIZE_DIRS 16
+#define MAX_SIZE_FILES 64
+#define MAX_LENGTH_NAME_WALK 2000
 #define FILES 0
 #define LINKS 1
 #include <dirent.h>
@@ -17,30 +22,52 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <pthread.h>
+#include <math.h>
 
-struct file
+typedef struct
 {
-    int type;
-    char data_file[MAX_SIZE_FILE];
-    int size_data;
+    int id_file;
     char name_file[MAX_SIZE_NAME_FILE];
+    char data_file[MAX_SIZE_FILE];
     int size_name_file;
-};
+    int size_data_file;
+    const char walk_to_file [MAX_LENGTH_NAME_WALK];
+    const char walk_to_file_pc [MAX_LENGTH_NAME_WALK];
+}file;
 
-struct my_dir
+typedef struct 
 {
-    int size_dirs;
-    struct file * objects;
-    int size_objects;
-    char name_dir[MAX_SIZE_NAME_FILE];
-    int size_name_dir;
-    struct my_dir * dirs;
-};
+    int id_dirs;
+    int dirs [MAX_NUMBERS_ENTRIES_DIRS];
+    int files[MAX_NUMBERS_ENTRIES_OBJECTS];
+    char name_dir [MAX_SIZE_NAME_FILE];
+    int size_name_file;
+    int number_entries_dirs;
+    int number_entries_files;
+    const char walk_to_file [MAX_LENGTH_NAME_WALK];
+}dir;
 
-void convert_file_to_data (const char* walk_file, const char* name_file, struct file * this_file, const char * name_file_mv);
+typedef struct 
+{
+    file* array;
+    int size;
+}array_files;
+
+typedef struct 
+{
+    dir* array;
+    int size;
+}array_dirs;
+
+void init_file (file* temp_file, int id);
+void init_dir (dir* temp_dir, int id);
+file* find_file (array_files * files, int id);
+dir* find_dir (array_dirs* dirs, int id);
+
+void convert_file_to_data (const char* walk_file, const char* name_file, file * this_file, const char * name_file_mv);
 int move_file (const char* walk, const char* name);
 int calculating_space (const char* str);
+void rename_name (char* name_file, int number_spaces);
 
 
 #endif
